@@ -7274,5 +7274,25 @@ window.addEventListener('load', () => {
 
   <div id="chatBox" style="margin-top:15px;"></div>
 </div>
+     <script>
+async function sendMessage() {
+  const input = document.getElementById("userInput").value;
+
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message: input })
+  });
+
+  const data = await res.json();
+
+  document.getElementById("chatBox").innerHTML += `
+    <p><b>You:</b> ${input}</p>
+    <p><b>AI:</b> ${data.reply}</p>
+  `;
+}
+</script>
 </body>
 </html>
